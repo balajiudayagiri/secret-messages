@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Securely encode and decode messages with Secret Messages, the ultimate Base64 Message Encoder & Decoder. Perfect for quick encryption and decryption." />
+    <meta
+      name="keywords"
+      content="Secret Messages, Base64 encoder, Base64 decoder, message encoding, message decoding, online tool, secure messages" />
+    <meta name="author" content="Secret Messages Team" />
+    <meta
+      property="og:title"
+      content="Secret Messages - Encode & Decode Messages Online" />
+    <meta
+      property="og:description"
+      content="Easily encode and decode your messages with Secret Messages, a secure and user-friendly Base64 tool." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://secretmessages.com" />
+    <meta
+      property="og:image"
+      content="https://secretmessages.com/assets/encoder-decoder-thumbnail.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="Secret Messages - Encode & Decode Messages Online" />
+    <meta
+      name="twitter:description"
+      content="Secure your messages with Base64 encoding and decoding, powered by Secret Messages." />
+    <meta
+      name="twitter:image"
+      content="https://secretmessages.com/assets/encoder-decoder-thumbnail.png" />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#2563eb" />
+    <title>Secret Messages - Encode & Decode Messages Online</title>
+    <link
+      rel="icon"
+      href="https://secretmessages.com/assets/favicon.ico"
+      type="image/x-icon" />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background: linear-gradient(to bottom right, #ebf8ff, #e3f2fd);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+      }
+      .container {
+        background: white;
+        border-radius: 1rem;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        padding: 2rem;
+        max-width: 600px;
+        width: 100%;
+      }
+      h1 {
+        font-size: 2rem;
+        font-weight: bold;
+        text-align: center;
+        color: #333;
+        margin-bottom: 1.5rem;
+      }
+      label {
+        font-size: 1rem;
+        font-weight: 600;
+        color: #555;
+        margin-bottom: 0.5rem;
+        display: block;
+      }
+      textarea {
+        width: -webkit-fill-available;
+        border: 1px solid #ccc;
+        border-radius: 0.5rem;
+        padding: 1rem;
+        font-size: 1rem;
+        color: #333;
+        margin-bottom: 1rem;
+        resize: none;
+        outline: none;
+      }
+      textarea:focus {
+        border-color: #007bff;
+        box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+      }
+      button {
+        width: 100%;
+        padding: 0.75rem;
+        border: none;
+        border-radius: 0.5rem;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+      .encode-btn {
+        background: #007bff;
+        color: white;
+      }
+      .encode-btn:hover {
+        background: #0056b3;
+      }
+      .decode-btn {
+        background: #28a745;
+        color: white;
+      }
+      .decode-btn:hover {
+        background: #1e7e34;
+      }
+      .copy-btn {
+        background: #ffc107;
+        color: white;
+        margin-top: 0.5rem;
+      }
+      .copy-btn:hover {
+        background: #e0a800;
+      }
+      p {
+        font-size: 0.9rem;
+        color: #555;
+        background: #f9f9f9;
+        border: 1px solid #e6e6e6;
+        border-radius: 0.5rem;
+        padding: 1rem;
+        margin-top: 1rem;
+        display: none;
+      }
+      .output-visible {
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>🔐 Secret Messages - Encode & Decode</h1>
+
+      <!-- Encoder Section -->
+      <div>
+        <label for="encoderInput">Enter Text to Encode</label>
+        <textarea
+          id="encoderInput"
+          rows="4"
+          placeholder="Type your message here..."></textarea>
+        <button class="encode-btn" onclick="encodeMessage()">
+          Encode Message
+        </button>
+        <p id="encodedOutput"></p>
+        <button
+          class="copy-btn"
+          style="display: none"
+          id="copyEncodedBtn"
+          onclick="copyToClipboard('encodedOutput')">
+          Copy Encoded Message
+        </button>
+      </div>
+
+      <!-- Decoder Section -->
+      <div style="margin-top: 2rem">
+        <label for="decoderInput">Paste Encoded Text to Decode</label>
+        <textarea
+          id="decoderInput"
+          rows="4"
+          placeholder="Paste encoded text here..."></textarea>
+        <button class="decode-btn" onclick="decodeMessage()">
+          Decode Message
+        </button>
+        <p id="decodedOutput"></p>
+        <button
+          class="copy-btn"
+          style="display: none"
+          id="copyDecodedBtn"
+          onclick="copyToClipboard('decodedOutput')">
+          Copy Decoded Message
+        </button>
+      </div>
+    </div>
+
+    <script>
+      // Function to encode a message
+      function encodeMessage() {
+        const input = document.getElementById("encoderInput").value.trim();
+        const output = document.getElementById("encodedOutput");
+        const copyBtn = document.getElementById("copyEncodedBtn");
+        if (input) {
+          const encoded = btoa(input); // Base64 encode
+          output.textContent = `🔒 Encoded Message: ${encoded}`;
+          output.classList.add("output-visible");
+          copyBtn.style.display = "block";
+        } else {
+          output.textContent = "⚠️ Please enter text to encode.";
+          output.classList.add("output-visible");
+          copyBtn.style.display = "none";
+        }
+      }
+
+      // Function to decode a message
+      function decodeMessage() {
+        const input = document.getElementById("decoderInput").value.trim();
+        const output = document.getElementById("decodedOutput");
+        const copyBtn = document.getElementById("copyDecodedBtn");
+        try {
+          const decoded = atob(input); // Base64 decode
+          output.textContent = `🔓 Decoded Message: ${decoded}`;
+          output.classList.add("output-visible");
+          copyBtn.style.display = "block";
+        } catch (e) {
+          output.textContent =
+            "❌ Invalid encoded text. Please ensure it's a valid Base64 string.";
+          output.classList.add("output-visible");
+          copyBtn.style.display = "none";
+        }
+      }
+
+      // Function to copy text to clipboard
+      function copyToClipboard(elementId) {
+        const output = document.getElementById(elementId);
+        const text = output.textContent.replace(
+          /^🔒 Encoded Message: |^🔓 Decoded Message: /,
+          ""
+        );
+        navigator.clipboard.writeText(text).then(
+          //   () => alert("Text copied to clipboard!"),
+          (err) => alert("Failed to copy text.")
+        );
+      }
+    </script>
+  </body>
+</html>
